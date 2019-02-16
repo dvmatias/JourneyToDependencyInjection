@@ -24,12 +24,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuestionsListActivity extends AppCompatActivity
         implements Callback<QuestionsListResponseSchema> {
 
+    /**
+     * Recycler view to display questions list.
+     */
     private RecyclerView rvQuestions;
-
+    /**
+     * Questions list adapter for {@link QuestionsListActivity#rvQuestions}.
+     */
     private QuestionsAdapter questionsAdapter;
-
+    /**
+     * StackOverflow Api.
+     */
     private StackoverflowApi stackoverflowApi;
-
+    /**
+     * Call object to send a request to {@link QuestionsListActivity#stackoverflowApi}.
+     */
     private Call<QuestionsListResponseSchema> call;
 
     @Override
@@ -40,14 +49,13 @@ public class QuestionsListActivity extends AppCompatActivity
         // init recycler view
         rvQuestions = findViewById(R.id.rv_questions);
         rvQuestions.setLayoutManager(new LinearLayoutManager(this));
-
+        // init recycler view adapter.
         questionsAdapter = new QuestionsAdapter(new OnQuestionClickListener() {
             @Override
             public void onQuestionClicked(Question question) {
                 QuestionDetailsActivity.start(QuestionsListActivity.this, question.getId());
             }
         });
-
         rvQuestions.setAdapter(questionsAdapter);
 
         // init retrofit
@@ -62,6 +70,7 @@ public class QuestionsListActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        // send request for last active question to StackOverflow Api.
         call = stackoverflowApi.lastActiveQuestions(20);
         call.enqueue(this);
     }
@@ -70,6 +79,7 @@ public class QuestionsListActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         if (call != null) {
+            // cancel request for last active question to StackOverflow Api.
             call.cancel();
         }
     }

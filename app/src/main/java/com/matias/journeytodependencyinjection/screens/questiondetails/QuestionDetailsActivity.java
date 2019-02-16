@@ -24,14 +24,25 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class QuestionDetailsActivity extends AppCompatActivity
         implements Callback<SingleQuestionResponseSchema> {
 
+    /**
+     * Extra key to send/get specific question ID as argument.
+     */
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
-
+    /**
+     * Tv to display question body information.
+     */
     private TextView tvQuestionDetail;
-
+    /**
+     * StackOverflow Api.
+     */
     private StackoverflowApi stackoverflowApi;
-
+    /**
+     * Call object to send a request to {@link QuestionDetailsActivity#stackoverflowApi}.
+     */
     private Call<SingleQuestionResponseSchema> call;
-
+    /**
+     * String to catch specific question ID from argument.
+     */
     private String questionId;
 
     public static void start(Context context, String questionId) {
