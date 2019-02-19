@@ -3,46 +3,22 @@ package com.matias.journeytodependencyinjection.screens.questiondetails;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.widget.TextView;
 
-import com.matias.journeytodependencyinjection.Constants;
 import com.matias.journeytodependencyinjection.R;
-import com.matias.journeytodependencyinjection.networking.SingleQuestionResponseSchema;
-import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
+import com.matias.journeytodependencyinjection.common.BaseActivity;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class QuestionDetailsActivity extends BaseActivity implements QuestionDetailsContract.View {
 
-public class QuestionDetailsActivity extends AppCompatActivity
-        implements Callback<SingleQuestionResponseSchema> {
-
-    /**
-     * Extra key to send/get specific question ID as argument.
-     */
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
-    /**
-     * Tv to display question body information.
-     */
+
+    private QuestionDetailsPresenterImpl presenter;
+
     private TextView tvQuestionDetail;
-    /**
-     * StackOverflow Api.
-     */
-    private StackoverflowApi stackoverflowApi;
-    /**
-     * Call object to send a request to {@link QuestionDetailsActivity#stackoverflowApi}.
-     */
-    private Call<SingleQuestionResponseSchema> call;
-    /**
-     * String to catch specific question ID from argument.
-     */
+
     private String questionId;
 
     public static void start(Context context, String questionId) {
@@ -53,56 +29,42 @@ public class QuestionDetailsActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        this.layoutResource = R.layout.activity_question_details;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_question_details);
 
         tvQuestionDetail = findViewById(R.id.tv_question_detail);
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
-
-        //noinspection ConstantConditions
-        questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
-
+        if (getIntent().getExtras() != null) {
+            questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        call = stackoverflowApi.questionDetails(questionId);
-        call.enqueue(this);
+        if (presenter == null) {
+            presenter = new QuestionDetailsPresenterImpl(this, new FetchQuestionDetailsInteractor());
+        }
+        presenter.fetchQuestionDetails(questionId);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (call != null) {
-            call.cancel();
-        }
+        presenter.unbind();
     }
 
     @Override
-    public void onResponse(@NonNull Call<SingleQuestionResponseSchema> call,
-                           @NonNull Response<SingleQuestionResponseSchema> response) {
-        SingleQuestionResponseSchema questionResponseSchema;
-        if (response.isSuccessful() && (questionResponseSchema = response.body()) != null) {
-            String questionBody = questionResponseSchema.getQuestion().getBody();
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                tvQuestionDetail.setText(Html.fromHtml(questionBody, Html.FROM_HTML_MODE_LEGACY));
-            } else {
-                tvQuestionDetail.setText(Html.fromHtml(questionBody));
-            }
+    public void showQuestionDetail(String questionDetails) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            tvQuestionDetail.setText(Html.fromHtml(questionDetails, Html.FROM_HTML_MODE_LEGACY));
         } else {
-            onFailure(call, new Throwable("Unsuccessful Response"));
+            tvQuestionDetail.setText(Html.fromHtml(questionDetails));
         }
     }
 
     @Override
-    public void onFailure(@NonNull Call<SingleQuestionResponseSchema> call, @NonNull Throwable t) {
+    public void showServerErrorDialogFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .add(ServerErrorDialogFragment.newInstance(), null)

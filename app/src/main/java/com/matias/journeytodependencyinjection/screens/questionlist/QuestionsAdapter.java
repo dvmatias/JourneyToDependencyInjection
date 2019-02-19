@@ -16,12 +16,12 @@ import java.util.List;
 
 public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.QuestionViewHolder> {
 
-    private final QuestionsListActivity.OnQuestionClickListener mOnQuestionClickListener;
+    private final QuestionsListActivity listener;
 
     private List<Question> listQuestions = new ArrayList<>(0);
 
-    QuestionsAdapter(QuestionsListActivity.OnQuestionClickListener onQuestionClickListener) {
-        mOnQuestionClickListener = onQuestionClickListener;
+    QuestionsAdapter(QuestionsListActivity listener) {
+        this.listener = listener;
     }
 
     class QuestionViewHolder extends RecyclerView.ViewHolder {
@@ -55,7 +55,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnQuestionClickListener.onQuestionClicked(listQuestions.get(position));
+                listener.goToQuestionDetailActivity(listQuestions.get(position).getId());
             }
         });
     }
