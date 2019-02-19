@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
 import com.matias.journeytodependencyinjection.questions.Question;
+import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 
@@ -21,6 +22,8 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
 
     private QuestionsListPresenterImpl presenter;
 
+    private DialogsManager dialogsManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.layoutResource = R.layout.activity_main;
@@ -32,6 +35,8 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
         // init recycler view adapter.
         questionsAdapter = new QuestionsAdapter(this);
         rvQuestions.setAdapter(questionsAdapter);
+
+        dialogsManager = new DialogsManager(getSupportFragmentManager());
     }
 
     @Override
@@ -56,10 +61,7 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
 
     @Override
     public void showServerErrorDialogFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(), null)
-                .commitAllowingStateLoss();
+        dialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), null);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
+import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 
 public class QuestionDetailsActivity extends BaseActivity implements QuestionDetailsContract.View {
@@ -20,6 +21,8 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     private TextView tvQuestionDetail;
 
     private String questionId;
+
+    private DialogsManager dialogsManager;
 
     public static void start(Context context, String questionId) {
         Intent intent = new Intent(context, QuestionDetailsActivity.class);
@@ -37,6 +40,8 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
         if (getIntent().getExtras() != null) {
             questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
         }
+
+        dialogsManager = new DialogsManager(getSupportFragmentManager());
     }
 
     @Override
@@ -65,9 +70,6 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
 
     @Override
     public void showServerErrorDialogFragment() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(ServerErrorDialogFragment.newInstance(), null)
-                .commitAllowingStateLoss();
+        dialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), null);
     }
 }
