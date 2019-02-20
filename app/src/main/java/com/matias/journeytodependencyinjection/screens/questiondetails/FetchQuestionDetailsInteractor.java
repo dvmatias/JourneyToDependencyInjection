@@ -22,7 +22,7 @@ public class FetchQuestionDetailsInteractor implements Callback<SingleQuestionRe
     }
 
     // Constructor.
-    FetchQuestionDetailsInteractor(StackoverflowApi stackoverflowApi) {
+    public FetchQuestionDetailsInteractor(StackoverflowApi stackoverflowApi) {
         this.stackoverflowApi = stackoverflowApi;
     }
 

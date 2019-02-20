@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
-import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
 import com.matias.journeytodependencyinjection.questions.Question;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
@@ -44,10 +43,7 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            StackoverflowApi stackoverflowApi =
-                    ((MyApplication) getApplication()).getStackoverflowApi();
-            presenter = new QuestionsListPresenterImpl(
-                    this, new FetchQuestionsListInteractor(stackoverflowApi));
+            presenter = ((MyApplication) getApplication()).getQuestionsListPresenterImpl(this);
         }
         presenter.fetchQuestions(20);
     }

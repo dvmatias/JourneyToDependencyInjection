@@ -25,7 +25,7 @@ public class FetchQuestionsListInteractor implements Callback<QuestionsListRespo
     }
 
     // Constructor.
-    FetchQuestionsListInteractor(StackoverflowApi stackoverflowApi) {
+    public FetchQuestionsListInteractor(StackoverflowApi stackoverflowApi) {
         this.stackoverflowApi = stackoverflowApi;
     }
 

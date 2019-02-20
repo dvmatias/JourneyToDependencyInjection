@@ -10,8 +10,8 @@ public class QuestionsListPresenterImpl extends BasePresenterImpl<QuestionsListC
 
     private FetchQuestionsListInteractor interactor;
 
-    QuestionsListPresenterImpl(QuestionsListActivity view,
-                               FetchQuestionsListInteractor interactor) {
+    public QuestionsListPresenterImpl(QuestionsListActivity view,
+                                      FetchQuestionsListInteractor interactor) {
         bind(view);
         this.interactor = interactor;
     }

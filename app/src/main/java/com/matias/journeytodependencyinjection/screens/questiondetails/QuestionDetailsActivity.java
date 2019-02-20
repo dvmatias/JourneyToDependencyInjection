@@ -49,10 +49,8 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            StackoverflowApi stackoverflowApi =
-                    ((MyApplication) getApplication()).getStackoverflowApi();
-            presenter = new QuestionDetailsPresenterImpl(
-                    this, new FetchQuestionDetailsInteractor(stackoverflowApi));
+            presenter = ((MyApplication) getApplication())
+                    .getQuestionDetailsPresenterImpl(this);
         }
         presenter.fetchQuestionDetails(questionId);
     }
