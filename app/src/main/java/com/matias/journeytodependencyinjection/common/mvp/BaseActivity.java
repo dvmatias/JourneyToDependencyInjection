@@ -1,4 +1,4 @@
-package com.matias.journeytodependencyinjection.common;
+package com.matias.journeytodependencyinjection.common.mvp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

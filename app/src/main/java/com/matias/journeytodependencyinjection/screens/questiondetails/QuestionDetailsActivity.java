@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
-import com.matias.journeytodependencyinjection.common.BaseActivity;
+import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 

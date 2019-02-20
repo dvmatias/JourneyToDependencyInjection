@@ -1,6 +1,6 @@
 package com.matias.journeytodependencyinjection.screens.questionlist;
 
-import com.matias.journeytodependencyinjection.common.BasePresenterImpl;
+import com.matias.journeytodependencyinjection.common.mvp.BasePresenterImpl;
 import com.matias.journeytodependencyinjection.questions.Question;
 
 import java.util.List;

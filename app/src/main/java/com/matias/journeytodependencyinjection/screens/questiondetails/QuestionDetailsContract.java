@@ -1,7 +1,7 @@
 package com.matias.journeytodependencyinjection.screens.questiondetails;
 
-import com.matias.journeytodependencyinjection.common.BasePresenter;
-import com.matias.journeytodependencyinjection.common.BaseView;
+import com.matias.journeytodependencyinjection.common.mvp.BasePresenter;
+import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 
 /**
  * MVP Contract for {@link QuestionDetailsActivity} screen.

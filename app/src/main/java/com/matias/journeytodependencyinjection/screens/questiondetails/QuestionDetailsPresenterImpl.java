@@ -1,6 +1,6 @@
 package com.matias.journeytodependencyinjection.screens.questiondetails;
 
-import com.matias.journeytodependencyinjection.common.BasePresenterImpl;
+import com.matias.journeytodependencyinjection.common.mvp.BasePresenterImpl;
 
 public class QuestionDetailsPresenterImpl extends BasePresenterImpl<QuestionDetailsContract.View>
         implements QuestionDetailsContract.Presenter, FetchQuestionDetailsInteractor.Callback {

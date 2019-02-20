@@ -1,4 +1,4 @@
-package com.matias.journeytodependencyinjection.common;
+package com.matias.journeytodependencyinjection.common.mvp;
 
 /**
  * Each presenter implementation should extend this class.
