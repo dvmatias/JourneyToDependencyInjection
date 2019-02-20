@@ -43,7 +43,8 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = ((MyApplication) getApplication()).getQuestionsListPresenterImpl(this);
+            presenter = ((MyApplication) getApplication())
+                    .getCompositionRoot().getQuestionsListPresenterImpl(this);
         }
         presenter.fetchQuestions(20);
     }
