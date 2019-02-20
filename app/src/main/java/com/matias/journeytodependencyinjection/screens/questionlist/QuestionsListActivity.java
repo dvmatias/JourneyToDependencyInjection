@@ -1,21 +1,19 @@
 package com.matias.journeytodependencyinjection.screens.questionlist;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
+import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
 import com.matias.journeytodependencyinjection.questions.Question;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 
 import java.util.List;
-
-import retrofit2.Retrofit;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
@@ -46,9 +44,10 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            Retrofit retrofit = ((MyApplication) getApplication()).getRetrofit();
+            StackoverflowApi stackoverflowApi =
+                    ((MyApplication) getApplication()).getStackoverflowApi();
             presenter = new QuestionsListPresenterImpl(
-                    this, new FetchQuestionsListInteractor(retrofit));
+                    this, new FetchQuestionsListInteractor(stackoverflowApi));
         }
         presenter.fetchQuestions(20);
     }

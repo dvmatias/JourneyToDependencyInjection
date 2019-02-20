@@ -11,7 +11,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class FetchQuestionsListInteractor implements Callback<QuestionsListResponseSchema> {
 
@@ -26,8 +25,8 @@ public class FetchQuestionsListInteractor implements Callback<QuestionsListRespo
     }
 
     // Constructor.
-    FetchQuestionsListInteractor(Retrofit retrofit) {
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
+    FetchQuestionsListInteractor(StackoverflowApi stackoverflowApi) {
+        this.stackoverflowApi = stackoverflowApi;
     }
 
     // Send API request to fetch questions list.
@@ -39,7 +38,7 @@ public class FetchQuestionsListInteractor implements Callback<QuestionsListRespo
     }
 
     // Cancel current API request.
-    void cancel() {
+    private void cancel() {
         if (call != null) {
             call.cancel();
         }

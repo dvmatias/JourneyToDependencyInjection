@@ -8,7 +8,6 @@ import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class FetchQuestionDetailsInteractor implements Callback<SingleQuestionResponseSchema> {
 
@@ -23,8 +22,8 @@ public class FetchQuestionDetailsInteractor implements Callback<SingleQuestionRe
     }
 
     // Constructor.
-    FetchQuestionDetailsInteractor(Retrofit retrofit) {
-        stackoverflowApi = retrofit.create(StackoverflowApi.class);
+    FetchQuestionDetailsInteractor(StackoverflowApi stackoverflowApi) {
+        this.stackoverflowApi = stackoverflowApi;
     }
 
     // Send API request to fetch specific question details.
