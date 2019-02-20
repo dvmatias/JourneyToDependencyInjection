@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
 import com.matias.journeytodependencyinjection.questions.Question;
@@ -13,6 +14,8 @@ import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogF
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 
 import java.util.List;
+
+import retrofit2.Retrofit;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
@@ -43,7 +46,9 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = new QuestionsListPresenterImpl(this, new FetchQuestionsListInteractor());
+            Retrofit retrofit = ((MyApplication) getApplication()).getRetrofit();
+            presenter = new QuestionsListPresenterImpl(
+                    this, new FetchQuestionsListInteractor(retrofit));
         }
         presenter.fetchQuestions(20);
     }

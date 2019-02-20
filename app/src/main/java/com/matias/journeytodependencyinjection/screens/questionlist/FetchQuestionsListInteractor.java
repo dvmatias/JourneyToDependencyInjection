@@ -2,7 +2,6 @@ package com.matias.journeytodependencyinjection.screens.questionlist;
 
 import android.support.annotation.NonNull;
 
-import com.matias.journeytodependencyinjection.Constants;
 import com.matias.journeytodependencyinjection.networking.QuestionsListResponseSchema;
 import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
 import com.matias.journeytodependencyinjection.questions.Question;
@@ -13,7 +12,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FetchQuestionsListInteractor implements Callback<QuestionsListResponseSchema> {
 
@@ -28,11 +26,7 @@ public class FetchQuestionsListInteractor implements Callback<QuestionsListRespo
     }
 
     // Constructor.
-    FetchQuestionsListInteractor() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    FetchQuestionsListInteractor(Retrofit retrofit) {
         stackoverflowApi = retrofit.create(StackoverflowApi.class);
     }
 

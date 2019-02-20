@@ -3,14 +3,16 @@ package com.matias.journeytodependencyinjection.screens.questiondetails;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.widget.TextView;
 
+import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.BaseActivity;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
+
+import retrofit2.Retrofit;
 
 public class QuestionDetailsActivity extends BaseActivity implements QuestionDetailsContract.View {
 
@@ -48,7 +50,9 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = new QuestionDetailsPresenterImpl(this, new FetchQuestionDetailsInteractor());
+            Retrofit retrofit = ((MyApplication) getApplication()).getRetrofit();
+            presenter = new QuestionDetailsPresenterImpl(
+                    this, new FetchQuestionDetailsInteractor(retrofit));
         }
         presenter.fetchQuestionDetails(questionId);
     }
