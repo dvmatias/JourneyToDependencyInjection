@@ -48,8 +48,7 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = ((MyApplication) getApplication())
-                    .getCompositionRoot().getQuestionDetailsPresenterImpl(this);
+            presenter = getCompositionRoot().getQuestionDetailsPresenterImpl(this);
         }
         presenter.fetchQuestionDetails(questionId);
     }
