@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.questions.Question;
@@ -36,7 +35,7 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
         questionsAdapter = new QuestionsAdapter(this);
         rvQuestions.setAdapter(questionsAdapter);
 
-        dialogsManager = new DialogsManager(getSupportFragmentManager());
+        dialogsManager = getCompositionRoot().getDialogsManager(getSupportFragmentManager());
     }
 
     @Override

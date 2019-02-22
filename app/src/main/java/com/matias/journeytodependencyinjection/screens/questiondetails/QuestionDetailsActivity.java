@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Html;
 import android.widget.TextView;
 
-import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
@@ -41,7 +40,7 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
             questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
         }
 
-        dialogsManager = new DialogsManager(getSupportFragmentManager());
+        dialogsManager = getCompositionRoot().getDialogsManager(getSupportFragmentManager());
     }
 
     @Override

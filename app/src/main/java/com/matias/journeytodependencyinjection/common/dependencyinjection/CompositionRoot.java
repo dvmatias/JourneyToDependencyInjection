@@ -1,9 +1,11 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection;
 
 import android.support.annotation.UiThread;
+import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.Constants;
 import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
+import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsPresenterImpl;
@@ -58,5 +60,10 @@ public class CompositionRoot {
     public QuestionDetailsPresenterImpl getQuestionDetailsPresenterImpl(
             QuestionDetailsActivity view) {
         return new QuestionDetailsPresenterImpl(view, getFetchQuestionDetailsInteractor());
+    }
+
+    @UiThread
+    public DialogsManager getDialogsManager(FragmentManager fragmentManager) {
+        return new DialogsManager(fragmentManager);
     }
 }
