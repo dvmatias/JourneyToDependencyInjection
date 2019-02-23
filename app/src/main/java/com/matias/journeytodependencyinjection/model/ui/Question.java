@@ -1,8 +1,8 @@
-package com.matias.journeytodependencyinjection.questions;
+package com.matias.journeytodependencyinjection.model.ui;
 
 import com.google.gson.annotations.SerializedName;
 
-public class QuestionWithBody {
+public class Question {
 
     @SerializedName("title")
     private final String mTitle;
@@ -10,13 +10,9 @@ public class QuestionWithBody {
     @SerializedName("question_id")
     private final String mId;
 
-    @SerializedName("body")
-    private final String mBody;
-
-    public QuestionWithBody(String title, String id, String body) {
+    public Question(String title, String id) {
         mTitle = title;
         mId = id;
-        mBody = body;
     }
 
     public String getTitle() {
@@ -25,9 +21,5 @@ public class QuestionWithBody {
 
     public String getId() {
         return mId;
-    }
-
-    public String getBody() {
-        return mBody;
     }
 }

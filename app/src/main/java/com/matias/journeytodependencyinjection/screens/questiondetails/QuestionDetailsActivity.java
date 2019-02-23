@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.R;
@@ -16,6 +17,10 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
 
     private QuestionDetailsPresenterImpl presenter;
+
+    private ImageView ivUserAvatar;
+
+    private TextView tvUserName;
 
     private TextView tvQuestionDetail;
 
@@ -34,6 +39,8 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
         this.layoutResource = R.layout.activity_question_details;
         super.onCreate(savedInstanceState);
 
+        ivUserAvatar = findViewById(R.id.iv_user_avatar);
+        tvUserName = findViewById(R.id.tv_user_name);
         tvQuestionDetail = findViewById(R.id.tv_question_detail);
 
         if (getIntent().getExtras() != null) {
@@ -59,11 +66,21 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     }
 
     @Override
-    public void showQuestionDetail(String questionDetails) {
+    public void showOwnerAvatar(String imageUrl) {
+        getCompositionRoot().getImageLoader().loadImage(imageUrl, ivUserAvatar);
+    }
+
+    @Override
+    public void showOwnerName(String name) {
+        tvUserName.setText(name);
+    }
+
+    @Override
+    public void showQuestionBody(String body) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            tvQuestionDetail.setText(Html.fromHtml(questionDetails, Html.FROM_HTML_MODE_LEGACY));
+            tvQuestionDetail.setText(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
         } else {
-            tvQuestionDetail.setText(Html.fromHtml(questionDetails));
+            tvQuestionDetail.setText(Html.fromHtml(body));
         }
     }
 

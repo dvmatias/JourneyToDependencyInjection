@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.R;
-import com.matias.journeytodependencyinjection.questions.Question;
+import com.matias.journeytodependencyinjection.model.ui.Question;
 
 import java.util.ArrayList;
 import java.util.List;

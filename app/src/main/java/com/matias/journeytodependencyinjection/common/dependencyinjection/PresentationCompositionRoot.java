@@ -1,8 +1,10 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection;
 
+import android.app.Activity;
 import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentManager;
 
+import com.matias.journeytodependencyinjection.common.ImageLoader;
 import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
@@ -18,12 +20,18 @@ public class PresentationCompositionRoot {
     private final BaseView view;
     private final CompositionRoot compositionRoot;
     private final FragmentManager fragmentManager;
+    private final Activity activity;
 
     public PresentationCompositionRoot(BaseView view, CompositionRoot compositionRoot,
-                                       FragmentManager fragmentManager) {
+                                       FragmentManager fragmentManager, Activity activity) {
         this.view = view;
         this.compositionRoot = compositionRoot;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
+    }
+
+    private Activity getActivity() {
+        return this.activity;
     }
 
     public DialogsManager getDialogsManager() {
@@ -52,5 +60,9 @@ public class PresentationCompositionRoot {
 
     public QuestionsAdapter getQuestionsAdapter() {
         return new QuestionsAdapter((QuestionsListActivity) view);
+    }
+
+    public ImageLoader getImageLoader() {
+        return new ImageLoader(getActivity());
     }
 }

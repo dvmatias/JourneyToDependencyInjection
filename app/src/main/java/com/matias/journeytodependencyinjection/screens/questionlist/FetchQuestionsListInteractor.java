@@ -2,9 +2,9 @@ package com.matias.journeytodependencyinjection.screens.questionlist;
 
 import android.support.annotation.NonNull;
 
-import com.matias.journeytodependencyinjection.networking.QuestionsListResponseSchema;
+import com.matias.journeytodependencyinjection.model.networking.QuestionsListResponseSchema;
 import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
-import com.matias.journeytodependencyinjection.questions.Question;
+import com.matias.journeytodependencyinjection.model.ui.Question;
 
 import java.util.List;
 

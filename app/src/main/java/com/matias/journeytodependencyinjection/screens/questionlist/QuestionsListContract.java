@@ -2,7 +2,7 @@ package com.matias.journeytodependencyinjection.screens.questionlist;
 
 import com.matias.journeytodependencyinjection.common.mvp.BasePresenter;
 import com.matias.journeytodependencyinjection.common.mvp.BaseView;
-import com.matias.journeytodependencyinjection.questions.Question;
+import com.matias.journeytodependencyinjection.model.ui.Question;
 
 import java.util.List;
 

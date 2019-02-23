@@ -2,7 +2,8 @@ package com.matias.journeytodependencyinjection.screens.questiondetails;
 
 import android.support.annotation.NonNull;
 
-import com.matias.journeytodependencyinjection.networking.SingleQuestionResponseSchema;
+import com.matias.journeytodependencyinjection.model.networking.SingleQuestionResponseSchema;
+import com.matias.journeytodependencyinjection.model.ui.QuestionDetails;
 import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
 
 import retrofit2.Call;
@@ -17,7 +18,7 @@ public class FetchQuestionDetailsInteractor implements Callback<SingleQuestionRe
 
     // Callback interface.
     interface Callback {
-        void onResponse(String questionDetails);
+        void onResponse(QuestionDetails questionDetails);
         void onFailure();
     }
 
@@ -47,10 +48,18 @@ public class FetchQuestionDetailsInteractor implements Callback<SingleQuestionRe
         if (response.isSuccessful() && response.body() != null &&
                 response.body().getQuestion() != null &&
                 response.body().getQuestion().getBody() != null) {
-            listener.onResponse(response.body().getQuestion().getBody());
+
+            listener.onResponse(getQuestionDetails(response.body()));
         } else {
             listener.onFailure();
         }
+    }
+
+    private QuestionDetails getQuestionDetails(SingleQuestionResponseSchema questionResponseSchema) {
+        return new QuestionDetails(questionResponseSchema.getQuestion().getTitle(),
+                questionResponseSchema.getQuestion().getId(),
+                questionResponseSchema.getQuestion().getBody(),
+                questionResponseSchema.getQuestion().getOwner());
     }
 
     @Override

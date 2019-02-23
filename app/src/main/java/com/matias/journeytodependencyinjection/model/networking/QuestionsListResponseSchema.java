@@ -1,14 +1,14 @@
-package com.matias.journeytodependencyinjection.networking;
+package com.matias.journeytodependencyinjection.model.networking;
 
 import com.google.gson.annotations.SerializedName;
-import com.matias.journeytodependencyinjection.questions.Question;
+import com.matias.journeytodependencyinjection.model.ui.Question;
 
 import java.util.List;
 
 public class QuestionsListResponseSchema {
 
     @SerializedName("items")
-    private final List<Question> mQuestions;
+   private final List<Question> mQuestions;
 
     /**
      * Constructor.

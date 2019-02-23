@@ -9,7 +9,9 @@ import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 public interface QuestionDetailsContract {
 
     interface View extends BaseView {
-        void showQuestionDetail(String questionDetails);
+        void showOwnerAvatar(String imageUrl);
+        void showOwnerName(String name);
+        void showQuestionBody(String body);
         void showServerErrorDialogFragment();
     }
 

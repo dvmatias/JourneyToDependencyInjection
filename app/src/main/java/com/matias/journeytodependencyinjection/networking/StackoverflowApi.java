@@ -1,5 +1,8 @@
 package com.matias.journeytodependencyinjection.networking;
 
+import com.matias.journeytodependencyinjection.model.networking.QuestionsListResponseSchema;
+import com.matias.journeytodependencyinjection.model.networking.SingleQuestionResponseSchema;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

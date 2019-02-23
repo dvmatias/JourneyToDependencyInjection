@@ -30,7 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             presentationCompositionRoot = new PresentationCompositionRoot(
                     this,
                     getAppCompositionRoot(),
-                    getSupportFragmentManager()
+                    getSupportFragmentManager(),
+                    this
             );
         }
 

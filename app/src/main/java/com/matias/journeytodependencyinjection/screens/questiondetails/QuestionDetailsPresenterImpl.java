@@ -1,6 +1,7 @@
 package com.matias.journeytodependencyinjection.screens.questiondetails;
 
 import com.matias.journeytodependencyinjection.common.mvp.BasePresenterImpl;
+import com.matias.journeytodependencyinjection.model.ui.QuestionDetails;
 
 public class QuestionDetailsPresenterImpl extends BasePresenterImpl<QuestionDetailsContract.View>
         implements QuestionDetailsContract.Presenter, FetchQuestionDetailsInteractor.Callback {
@@ -21,9 +22,11 @@ public class QuestionDetailsPresenterImpl extends BasePresenterImpl<QuestionDeta
     }
 
     @Override
-    public void onResponse(String questionDetails) {
+    public void onResponse(QuestionDetails questionDetails) {
         if (isBound()) {
-            view.showQuestionDetail(questionDetails);
+            view.showOwnerAvatar(questionDetails.getOwner().getImageUrl());
+            view.showOwnerName(questionDetails.getOwner().getName());
+            view.showQuestionBody(questionDetails.getBody());
         }
     }
 
