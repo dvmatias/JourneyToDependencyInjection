@@ -20,7 +20,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.Ques
 
     private List<Question> listQuestions = new ArrayList<>(0);
 
-    QuestionsAdapter(QuestionsListActivity listener) {
+    public QuestionsAdapter(QuestionsListActivity listener) {
         this.listener = listener;
     }
 

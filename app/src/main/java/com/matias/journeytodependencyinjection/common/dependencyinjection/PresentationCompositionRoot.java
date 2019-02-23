@@ -9,6 +9,7 @@ import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQues
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsPresenterImpl;
 import com.matias.journeytodependencyinjection.screens.questionlist.FetchQuestionsListInteractor;
+import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsAdapter;
 import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListActivity;
 import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListPresenterImpl;
 
@@ -47,5 +48,9 @@ public class PresentationCompositionRoot {
     public QuestionDetailsPresenterImpl getQuestionDetailsPresenterImpl() {
         return new QuestionDetailsPresenterImpl(
                 (QuestionDetailsActivity) view, getFetchQuestionDetailsInteractor());
+    }
+
+    public QuestionsAdapter getQuestionsAdapter() {
+        return new QuestionsAdapter((QuestionsListActivity) view);
     }
 }

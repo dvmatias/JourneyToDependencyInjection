@@ -15,8 +15,6 @@ import java.util.List;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
-    private RecyclerView rvQuestions;
-
     private QuestionsAdapter questionsAdapter;
 
     private QuestionsListPresenterImpl presenter;
@@ -29,10 +27,10 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
         super.onCreate(savedInstanceState);
 
         // init recycler view
-        rvQuestions = findViewById(R.id.rv_questions);
+        RecyclerView rvQuestions = findViewById(R.id.rv_questions);
         rvQuestions.setLayoutManager(new LinearLayoutManager(this));
         // init recycler view adapter.
-        questionsAdapter = new QuestionsAdapter(this);
+        questionsAdapter = getCompositionRoot().getQuestionsAdapter();
         rvQuestions.setAdapter(questionsAdapter);
 
         dialogsManager = getCompositionRoot().getDialogsManager();
@@ -41,9 +39,7 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
     @Override
     protected void onStart() {
         super.onStart();
-        if (presenter == null) {
-            presenter = getCompositionRoot().getQuestionsListPresenterImpl();
-        }
+        presenter = getCompositionRoot().getQuestionsListPresenterImpl();
         presenter.fetchQuestions(20);
     }
 
