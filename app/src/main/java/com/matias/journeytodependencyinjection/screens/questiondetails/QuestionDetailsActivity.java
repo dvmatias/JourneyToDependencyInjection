@@ -40,14 +40,14 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
             questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
         }
 
-        dialogsManager = getCompositionRoot().getDialogsManager(getSupportFragmentManager());
+        dialogsManager = getCompositionRoot().getDialogsManager();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = getCompositionRoot().getQuestionDetailsPresenterImpl(this);
+            presenter = getCompositionRoot().getQuestionDetailsPresenterImpl();
         }
         presenter.fetchQuestionDetails(questionId);
     }

@@ -35,14 +35,14 @@ public class QuestionsListActivity extends BaseActivity implements QuestionsList
         questionsAdapter = new QuestionsAdapter(this);
         rvQuestions.setAdapter(questionsAdapter);
 
-        dialogsManager = getCompositionRoot().getDialogsManager(getSupportFragmentManager());
+        dialogsManager = getCompositionRoot().getDialogsManager();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         if (presenter == null) {
-            presenter = getCompositionRoot().getQuestionsListPresenterImpl(this);
+            presenter = getCompositionRoot().getQuestionsListPresenterImpl();
         }
         presenter.fetchQuestions(20);
     }

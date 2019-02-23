@@ -1,17 +1,11 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection;
 
 import android.support.annotation.UiThread;
-import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.Constants;
 import com.matias.journeytodependencyinjection.networking.StackoverflowApi;
-import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
-import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
-import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsPresenterImpl;
 import com.matias.journeytodependencyinjection.screens.questionlist.FetchQuestionsListInteractor;
-import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListActivity;
-import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListPresenterImpl;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -42,28 +36,12 @@ public class CompositionRoot {
     }
 
     @UiThread
-    private FetchQuestionsListInteractor getFetchQuestionsListInteractor() {
+    FetchQuestionsListInteractor getFetchQuestionsListInteractor() {
         return new FetchQuestionsListInteractor(getStackoverflowApi());
     }
 
     @UiThread
-    private FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor() {
+    FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor() {
         return  new FetchQuestionDetailsInteractor(getStackoverflowApi());
-    }
-
-    @UiThread
-    public QuestionsListPresenterImpl getQuestionsListPresenterImpl(QuestionsListActivity view) {
-        return new QuestionsListPresenterImpl(view, getFetchQuestionsListInteractor());
-    }
-
-    @UiThread
-    public QuestionDetailsPresenterImpl getQuestionDetailsPresenterImpl(
-            QuestionDetailsActivity view) {
-        return new QuestionDetailsPresenterImpl(view, getFetchQuestionDetailsInteractor());
-    }
-
-    @UiThread
-    public DialogsManager getDialogsManager(FragmentManager fragmentManager) {
-        return new DialogsManager(fragmentManager);
     }
 }
