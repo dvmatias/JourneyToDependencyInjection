@@ -3,7 +3,7 @@ package com.matias.journeytodependencyinjection.common.dependencyinjection;
 import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentManager;
 
-import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
+import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
@@ -15,11 +15,11 @@ import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsLis
 
 public class PresentationCompositionRoot {
 
-    private final BaseActivity view;
+    private final BaseView view;
     private final CompositionRoot compositionRoot;
     private final FragmentManager fragmentManager;
 
-    public PresentationCompositionRoot(BaseActivity view, CompositionRoot compositionRoot,
+    public PresentationCompositionRoot(BaseView view, CompositionRoot compositionRoot,
                                        FragmentManager fragmentManager) {
         this.view = view;
         this.compositionRoot = compositionRoot;
