@@ -15,31 +15,25 @@ import java.util.List;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
-    private QuestionsAdapter questionsAdapter;
-
-    private QuestionsListPresenterImpl presenter;
-
-    private DialogsManager dialogsManager;
+    public QuestionsAdapter questionsAdapter;
+    public QuestionsListPresenterImpl presenter;
+    public DialogsManager dialogsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.layoutResource = R.layout.activity_main;
         super.onCreate(savedInstanceState);
+        getInjector().inject(this);
 
         // init recycler view
         RecyclerView rvQuestions = findViewById(R.id.rv_questions);
         rvQuestions.setLayoutManager(new LinearLayoutManager(this));
-        // init recycler view adapter.
-        questionsAdapter = getCompositionRoot().getQuestionsAdapter();
         rvQuestions.setAdapter(questionsAdapter);
-
-        dialogsManager = getCompositionRoot().getDialogsManager();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter = getCompositionRoot().getQuestionsListPresenterImpl();
         presenter.fetchQuestions(20);
     }
 
