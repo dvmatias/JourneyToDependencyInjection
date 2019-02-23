@@ -1,7 +1,13 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection;
 
-import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsActivity;
-import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListActivity;
+import com.matias.journeytodependencyinjection.common.ImageLoader;
+import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
+import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsPresenterImpl;
+import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsAdapter;
+import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsListPresenterImpl;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 
 public class Injector {
 
@@ -12,24 +18,54 @@ public class Injector {
     }
 
     public void inject(Object client) {
-        if (client instanceof QuestionsListActivity) {
-            injectQuestionsListActivity((QuestionsListActivity) client);
-        } else if (client instanceof QuestionDetailsActivity) {
-            injectQuestionDetailsActivity((QuestionDetailsActivity) client);
-        } else {
-            throw new RuntimeException("INVALID CLIENT: " + client);
+        Class clazz = client.getClass();
+
+        Field[] fields = clazz.getDeclaredFields();
+
+        for (Field field : fields) {
+            if (isAnnotatedForInjection(field)) {
+                injectField(client, field);
+            }
         }
     }
 
-    private void injectQuestionsListActivity(QuestionsListActivity client) {
-        client.questionsAdapter = presentationCompositionRoot.getQuestionsAdapter();
-        client.presenter = presentationCompositionRoot.getQuestionsListPresenterImpl();
-        client.dialogsManager = presentationCompositionRoot.getDialogsManager();
+    private boolean isAnnotatedForInjection(Field field) {
+        Annotation[] annotations = field.getDeclaredAnnotations();
+
+        for(Annotation annotation : annotations){
+            if(annotation instanceof Service){
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    private void injectQuestionDetailsActivity(QuestionDetailsActivity client) {
-        client.presenter = presentationCompositionRoot.getQuestionDetailsPresenterImpl();
-        client.dialogsManager = presentationCompositionRoot.getDialogsManager();
-        client.imageLoader = presentationCompositionRoot.getImageLoader();
+    private void injectField(Object client, Field field) {
+        try {
+            boolean isAccessibleInitially = field.isAccessible();
+            field.setAccessible(true);
+            field.set(client, getServiceForClass(field.getType()));
+            field.setAccessible(isAccessibleInitially);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Object getServiceForClass(Class<?> type) {
+        if (type.equals(DialogsManager.class)) {
+            return presentationCompositionRoot.getDialogsManager();
+        } else if (type.equals(QuestionsAdapter.class)) {
+            return presentationCompositionRoot.getQuestionsAdapter();
+        } else if (type.equals(QuestionsListPresenterImpl.class)) {
+            return presentationCompositionRoot.getQuestionsListPresenterImpl();
+        } else if (type.equals(QuestionDetailsPresenterImpl.class)) {
+            return presentationCompositionRoot.getQuestionDetailsPresenterImpl();
+        } else if (type.equals(ImageLoader.class)) {
+            return presentationCompositionRoot.getImageLoader();
+        }
+        else {
+            throw new RuntimeException("unsupported service type class: " + type);
+        }
     }
 }

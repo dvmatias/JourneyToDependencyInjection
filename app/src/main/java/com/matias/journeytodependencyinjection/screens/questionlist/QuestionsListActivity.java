@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.matias.journeytodependencyinjection.R;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.Service;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.model.ui.Question;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
@@ -15,9 +16,9 @@ import java.util.List;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
-    public QuestionsAdapter questionsAdapter;
-    public QuestionsListPresenterImpl presenter;
-    public DialogsManager dialogsManager;
+    @Service private QuestionsAdapter questionsAdapter;
+    @Service private QuestionsListPresenterImpl presenter;
+    @Service private DialogsManager dialogsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

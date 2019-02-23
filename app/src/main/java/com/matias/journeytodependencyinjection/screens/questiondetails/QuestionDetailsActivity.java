@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.ImageLoader;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.Service;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
@@ -18,18 +19,13 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
 
     private ImageView ivUserAvatar;
-
     private TextView tvUserName;
-
     private TextView tvQuestionDetail;
-
     private String questionId;
 
-    public QuestionDetailsPresenterImpl presenter;
-
-    public DialogsManager dialogsManager;
-
-    public ImageLoader imageLoader;
+    @Service private QuestionDetailsPresenterImpl presenter;
+    @Service private DialogsManager dialogsManager;
+    @Service private ImageLoader imageLoader;
 
     public static void start(Context context, String questionId) {
         Intent intent = new Intent(context, QuestionDetailsActivity.class);

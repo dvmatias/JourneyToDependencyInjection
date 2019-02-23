@@ -17,7 +17,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
      */
     protected int layoutResource;
 
-    private PresentationCompositionRoot presentationCompositionRoot;
+    private boolean isInjectorUsed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,21 +27,21 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     @UiThread
     protected Injector getInjector() {
+        if (isInjectorUsed) {
+            throw new RuntimeException("There is no need to use injector more than once");
+        }
+        isInjectorUsed = true;
         return new Injector(getCompositionRoot());
     }
 
     @UiThread
-    protected PresentationCompositionRoot getCompositionRoot() {
-        if (presentationCompositionRoot == null) {
-            presentationCompositionRoot = new PresentationCompositionRoot(
+    private PresentationCompositionRoot getCompositionRoot() {
+        return new PresentationCompositionRoot(
                     this,
                     getAppCompositionRoot(),
                     getSupportFragmentManager(),
                     this
             );
-        }
-
-        return presentationCompositionRoot;
     }
 
     private CompositionRoot getAppCompositionRoot(){
