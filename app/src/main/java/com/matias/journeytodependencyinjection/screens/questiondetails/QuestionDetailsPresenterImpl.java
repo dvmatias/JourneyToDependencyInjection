@@ -8,7 +8,7 @@ public class QuestionDetailsPresenterImpl extends BasePresenterImpl<QuestionDeta
 
     private FetchQuestionDetailsInteractor interactor;
 
-    public QuestionDetailsPresenterImpl(QuestionDetailsActivity view,
+    public QuestionDetailsPresenterImpl(QuestionDetailsContract.View view,
                                         FetchQuestionDetailsInteractor interactor) {
         bind(view);
         this.interactor = interactor;
