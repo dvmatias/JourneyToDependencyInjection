@@ -5,6 +5,7 @@ import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.common.ImageLoader;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
 import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
@@ -18,14 +19,14 @@ import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsLis
 public class PresentationCompositionRoot {
 
     private final BaseView view;
-    private final CompositionRoot compositionRoot;
+    private final ApplicationComponent applicationComponent;
     private final FragmentManager fragmentManager;
     private final Activity activity;
 
-    public PresentationCompositionRoot(BaseView view, CompositionRoot compositionRoot,
+    public PresentationCompositionRoot(BaseView view, ApplicationComponent applicationComponent,
                                        FragmentManager fragmentManager, Activity activity) {
         this.view = view;
-        this.compositionRoot = compositionRoot;
+        this.applicationComponent = applicationComponent;
         this.fragmentManager = fragmentManager;
         this.activity = activity;
     }
@@ -39,11 +40,11 @@ public class PresentationCompositionRoot {
     }
 
     private FetchQuestionsListInteractor getFetchQuestionsListInteractor() {
-        return this.compositionRoot.getFetchQuestionsListInteractor();
+        return this.applicationComponent.getFetchQuestionsListInteractor();
     }
 
     private FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor() {
-        return this.compositionRoot.getFetchQuestionDetailsInteractor();
+        return this.applicationComponent.getFetchQuestionDetailsInteractor();
     }
 
     @UiThread

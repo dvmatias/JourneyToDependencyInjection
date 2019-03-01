@@ -1,22 +1,25 @@
 package com.matias.journeytodependencyinjection;
 
 import android.app.Application;
-import android.support.annotation.UiThread;
 
-import com.matias.journeytodependencyinjection.common.dependencyinjection.CompositionRoot;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationModule;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.application.DaggerApplicationComponent;
 
 public class MyApplication extends Application {
 
-    private CompositionRoot compositionRoot;
+    private ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        this.compositionRoot = new CompositionRoot();
+        this.applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule())
+                .build();
     }
 
-    @UiThread
-    public CompositionRoot getCompositionRoot() {
-        return this.compositionRoot;
+    public ApplicationComponent getApplicationComponent() {
+        return this.applicationComponent;
     }
 }

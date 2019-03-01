@@ -6,9 +6,9 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 
 import com.matias.journeytodependencyinjection.MyApplication;
-import com.matias.journeytodependencyinjection.common.dependencyinjection.CompositionRoot;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.Injector;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.PresentationCompositionRoot;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
@@ -38,13 +38,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     private PresentationCompositionRoot getCompositionRoot() {
         return new PresentationCompositionRoot(
                     this,
-                    getAppCompositionRoot(),
+                    getApplicationComponent(),
                     getSupportFragmentManager(),
                     this
             );
     }
 
-    private CompositionRoot getAppCompositionRoot(){
-        return ((MyApplication) getApplication()).getCompositionRoot();
+    private ApplicationComponent getApplicationComponent(){
+        return ((MyApplication) getApplication()).getApplicationComponent();
     }
 }
