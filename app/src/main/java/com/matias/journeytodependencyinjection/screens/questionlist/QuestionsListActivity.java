@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.matias.journeytodependencyinjection.R;
-import com.matias.journeytodependencyinjection.common.dependencyinjection.Service;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.model.ui.Question;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
@@ -14,17 +13,19 @@ import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionD
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
-    @Service private QuestionsAdapter questionsAdapter;
-    @Service private QuestionsListPresenterImpl presenter;
-    @Service private DialogsManager dialogsManager;
+    @Inject QuestionsAdapter questionsAdapter;
+    @Inject QuestionsListPresenterImpl presenter;
+    @Inject DialogsManager dialogsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.layoutResource = R.layout.activity_main;
         super.onCreate(savedInstanceState);
-        getInjector().inject(this);
+        getPresentationComponent().inject(this);
 
         // init recycler view
         RecyclerView rvQuestions = findViewById(R.id.rv_questions);
