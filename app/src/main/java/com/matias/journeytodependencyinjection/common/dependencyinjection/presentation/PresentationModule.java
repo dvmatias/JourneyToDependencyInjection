@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.common.ImageLoader;
-import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
 import com.matias.journeytodependencyinjection.common.mvp.BaseView;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
@@ -22,14 +21,11 @@ import dagger.Provides;
 public class PresentationModule {
 
     private final BaseView view;
-    private final ApplicationComponent applicationComponent;
     private final FragmentManager fragmentManager;
     private final Activity activity;
 
-    public PresentationModule(BaseView view, ApplicationComponent applicationComponent,
-                              FragmentManager fragmentManager, Activity activity) {
+    public PresentationModule(BaseView view, FragmentManager fragmentManager, Activity activity) {
         this.view = view;
-        this. applicationComponent = applicationComponent;
         this.fragmentManager = fragmentManager;
         this.activity = activity;
     }
@@ -45,25 +41,15 @@ public class PresentationModule {
     }
 
     @Provides
-    FetchQuestionsListInteractor getFetchQuestionsListInteractor() {
-        return this.applicationComponent.getFetchQuestionsListInteractor();
-    }
-
-    @Provides
-    FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor() {
-        return this.applicationComponent.getFetchQuestionDetailsInteractor();
-    }
-
-    @Provides
-    QuestionsListPresenterImpl getQuestionsListPresenterImpl() {
+    QuestionsListPresenterImpl getQuestionsListPresenterImpl(FetchQuestionsListInteractor fetchQuestionsListInteractor) {
         return new QuestionsListPresenterImpl(
-                (QuestionsListActivity) view, getFetchQuestionsListInteractor());
+                (QuestionsListActivity) view, fetchQuestionsListInteractor);
     }
     
     @Provides
-    QuestionDetailsPresenterImpl getQuestionDetailsPresenterImpl() {
+    QuestionDetailsPresenterImpl getQuestionDetailsPresenterImpl(FetchQuestionDetailsInteractor fetchQuestionDetailsInteractor) {
         return new QuestionDetailsPresenterImpl(
-                (QuestionDetailsActivity) view, getFetchQuestionDetailsInteractor());
+                (QuestionDetailsActivity) view, fetchQuestionDetailsInteractor);
     }
 
     @Provides

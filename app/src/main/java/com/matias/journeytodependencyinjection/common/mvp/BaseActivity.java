@@ -36,9 +36,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                 .builder()
                 .presentationModule(new PresentationModule(
                         this,
-                        getApplicationComponent(),
                         getSupportFragmentManager(),
                         this))
+                .applicationComponent(getApplicationComponent())
                 .build();
     }
 
