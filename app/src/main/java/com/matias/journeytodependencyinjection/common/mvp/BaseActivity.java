@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.Injector;
-import com.matias.journeytodependencyinjection.common.dependencyinjection.PresentationCompositionRoot;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.DaggerPresentationComponent;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationComponent;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationModule;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
@@ -31,17 +33,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             throw new RuntimeException("There is no need to use injector more than once");
         }
         isInjectorUsed = true;
-        return new Injector(getCompositionRoot());
+        return new Injector(getPresentationComponent());
     }
 
     @UiThread
-    private PresentationCompositionRoot getCompositionRoot() {
-        return new PresentationCompositionRoot(
-                    this,
-                    getApplicationComponent(),
-                    getSupportFragmentManager(),
-                    this
-            );
+    private PresentationComponent getPresentationComponent() {
+        return DaggerPresentationComponent
+                .builder()
+                .presentationModule(new PresentationModule(
+                        this,
+                        getApplicationComponent(),
+                        getSupportFragmentManager(),
+                        this))
+                .build();
     }
 
     private ApplicationComponent getApplicationComponent(){

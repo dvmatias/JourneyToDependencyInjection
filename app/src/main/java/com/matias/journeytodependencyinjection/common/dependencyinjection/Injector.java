@@ -1,6 +1,7 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection;
 
 import com.matias.journeytodependencyinjection.common.ImageLoader;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationComponent;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.questiondetails.QuestionDetailsPresenterImpl;
 import com.matias.journeytodependencyinjection.screens.questionlist.QuestionsAdapter;
@@ -11,10 +12,10 @@ import java.lang.reflect.Field;
 
 public class Injector {
 
-    private PresentationCompositionRoot presentationCompositionRoot;
+    private PresentationComponent presentationComponent;
 
-    public Injector(PresentationCompositionRoot presentationCompositionRoot) {
-        this.presentationCompositionRoot = presentationCompositionRoot;
+    public Injector(PresentationComponent presentationComponent) {
+        this.presentationComponent = presentationComponent;
     }
 
     public void inject(Object client) {
@@ -54,15 +55,15 @@ public class Injector {
 
     private Object getServiceForClass(Class<?> type) {
         if (type.equals(DialogsManager.class)) {
-            return presentationCompositionRoot.getDialogsManager();
+            return presentationComponent.getDialogsManager();
         } else if (type.equals(QuestionsAdapter.class)) {
-            return presentationCompositionRoot.getQuestionsAdapter();
+            return presentationComponent.getQuestionsAdapter();
         } else if (type.equals(QuestionsListPresenterImpl.class)) {
-            return presentationCompositionRoot.getQuestionsListPresenterImpl();
+            return presentationComponent.getQuestionsListPresenterImpl();
         } else if (type.equals(QuestionDetailsPresenterImpl.class)) {
-            return presentationCompositionRoot.getQuestionDetailsPresenterImpl();
+            return presentationComponent.getQuestionDetailsPresenterImpl();
         } else if (type.equals(ImageLoader.class)) {
-            return presentationCompositionRoot.getImageLoader();
+            return presentationComponent.getImageLoader();
         }
         else {
             throw new RuntimeException("unsupported service type class: " + type);
