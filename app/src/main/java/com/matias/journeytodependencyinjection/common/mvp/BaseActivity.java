@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
-import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.DaggerPresentationComponent;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationComponent;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationModule;
 
@@ -32,14 +31,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             throw new RuntimeException("There is no need to use injector more than once");
         }
         isInjectorUsed = true;
-        return DaggerPresentationComponent
-                .builder()
-                .presentationModule(new PresentationModule(
-                        this,
-                        getSupportFragmentManager(),
-                        this))
-                .applicationComponent(getApplicationComponent())
-                .build();
+        return getApplicationComponent().newPresentationComponent(
+                new PresentationModule(this, getSupportFragmentManager(), this));
     }
 
     private ApplicationComponent getApplicationComponent(){

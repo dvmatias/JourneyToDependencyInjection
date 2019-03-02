@@ -1,7 +1,7 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection.application;
 
-import com.matias.journeytodependencyinjection.screens.questiondetails.FetchQuestionDetailsInteractor;
-import com.matias.journeytodependencyinjection.screens.questionlist.FetchQuestionsListInteractor;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationComponent;
+import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationModule;
 
 import javax.inject.Singleton;
 
@@ -12,6 +12,7 @@ import dagger.Component;
         modules = ApplicationModule.class
 )
 public interface ApplicationComponent {
-    FetchQuestionsListInteractor getFetchQuestionsListInteractor();
-    FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor();
+
+    PresentationComponent newPresentationComponent(PresentationModule presentationModule);
+
 }
