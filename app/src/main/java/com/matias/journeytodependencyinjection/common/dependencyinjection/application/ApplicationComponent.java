@@ -12,6 +12,6 @@ import dagger.Component;
         modules = ApplicationModule.class
 )
 public interface ApplicationComponent {
-    public FetchQuestionsListInteractor getFetchQuestionsListInteractor();
-    public FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor();
+    FetchQuestionsListInteractor getFetchQuestionsListInteractor();
+    FetchQuestionDetailsInteractor getFetchQuestionDetailsInteractor();
 }

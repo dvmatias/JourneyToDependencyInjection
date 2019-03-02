@@ -1,7 +1,6 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection.presentation;
 
 import android.app.Activity;
-import android.support.annotation.UiThread;
 import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.common.ImageLoader;
