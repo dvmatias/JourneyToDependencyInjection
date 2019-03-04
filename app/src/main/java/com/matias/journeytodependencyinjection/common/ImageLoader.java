@@ -6,12 +6,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import javax.inject.Inject;
+
 public class ImageLoader {
 
     private final Activity activity;
 
     private final RequestOptions mDefaultRequestOptions;
 
+    @Inject
     public ImageLoader(Activity activity) {
         this.activity = activity;
 
