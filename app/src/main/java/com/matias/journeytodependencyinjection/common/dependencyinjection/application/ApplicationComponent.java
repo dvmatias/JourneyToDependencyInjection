@@ -9,7 +9,11 @@ import dagger.Component;
 
 @Singleton
 @Component(
-        modules = ApplicationModule.class
+        modules = {
+                ApplicationModule.class,
+                NetworkingModule.class,
+                InteractorModule.class
+        }
 )
 public interface ApplicationComponent {
 
