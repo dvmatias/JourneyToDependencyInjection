@@ -56,4 +56,9 @@ public class PresentationModule {
     QuestionsAdapter getQuestionsAdapter() {
         return new QuestionsAdapter((QuestionsListActivity) view);
     }
+
+    @Provides
+    ImageLoader getImageLoader() {
+        return new ImageLoader(getActivity());
+    }
 }
