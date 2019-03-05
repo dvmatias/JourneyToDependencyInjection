@@ -1,6 +1,7 @@
 package com.matias.journeytodependencyinjection.common.dependencyinjection.presentation;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import com.matias.journeytodependencyinjection.common.ImageLoader;
@@ -33,6 +34,11 @@ public class PresentationModule {
     @Provides
     Activity getActivity() {
         return this.activity;
+    }
+
+    @Provides
+    Context context(Activity activity) {
+        return activity;
     }
 
     @Provides
