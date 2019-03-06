@@ -1,29 +1,16 @@
 package com.matias.journeytodependencyinjection.common.mvp;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 
 import com.matias.journeytodependencyinjection.MyApplication;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.application.ApplicationComponent;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationComponent;
 import com.matias.journeytodependencyinjection.common.dependencyinjection.presentation.PresentationModule;
 
-public abstract class BaseActivity extends AppCompatActivity implements BaseView {
-
-    /**
-     * Layout resource to be inflated.
-     */
-    protected int layoutResource;
+public abstract class BasefFragment extends Fragment implements BaseView {
 
     private boolean isInjectorUsed;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(layoutResource);
-    }
 
     @UiThread
     protected PresentationComponent getPresentationComponent() {
@@ -32,10 +19,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         }
         isInjectorUsed = true;
         return getApplicationComponent().newPresentationComponent(
-                new PresentationModule(this, getSupportFragmentManager(), this));
+                new PresentationModule(this,
+                        getActivity().getSupportFragmentManager(),
+                        getActivity()));
     }
 
     private ApplicationComponent getApplicationComponent(){
-        return ((MyApplication) getApplication()).getApplicationComponent();
+        return ((MyApplication) getActivity().getApplication()).getApplicationComponent();
     }
 }
