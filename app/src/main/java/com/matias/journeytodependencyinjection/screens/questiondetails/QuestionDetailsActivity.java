@@ -2,14 +2,14 @@ package com.matias.journeytodependencyinjection.screens.questiondetails;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Html;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.ImageLoader;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
+import com.matias.journeytodependencyinjection.databinding.ActivityQuestionDetailsBinding;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 
@@ -19,9 +19,8 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
 
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
 
-    private ImageView ivUserAvatar;
-    private TextView tvUserName;
-    private TextView tvQuestionDetail;
+    private ActivityQuestionDetailsBinding binding;
+
     private String questionId;
 
     @Inject QuestionDetailsPresenterImpl presenter;
@@ -36,13 +35,10 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.layoutResource = R.layout.activity_question_details;
         super.onCreate(savedInstanceState);
-        getPresentationComponent().inject(this);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_question_details);
 
-        ivUserAvatar = findViewById(R.id.iv_user_avatar);
-        tvUserName = findViewById(R.id.tv_user_name);
-        tvQuestionDetail = findViewById(R.id.tv_question_detail);
+        getPresentationComponent().inject(this);
 
         if (getIntent().getExtras() != null) {
             questionId = getIntent().getExtras().getString(EXTRA_QUESTION_ID);
@@ -63,20 +59,20 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
 
     @Override
     public void showOwnerAvatar(String imageUrl) {
-        imageLoader.loadImage(imageUrl, ivUserAvatar);
+        imageLoader.loadImage(imageUrl, binding.ivUserAvatar);
     }
 
     @Override
     public void showOwnerName(String name) {
-        tvUserName.setText(name);
+        binding.tvUserName.setText(name);
     }
 
     @Override
     public void showQuestionBody(String body) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            tvQuestionDetail.setText(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
+            binding.tvQuestionDetail.setText(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
         } else {
-            tvQuestionDetail.setText(Html.fromHtml(body));
+            binding.tvQuestionDetail.setText(Html.fromHtml(body));
         }
     }
 

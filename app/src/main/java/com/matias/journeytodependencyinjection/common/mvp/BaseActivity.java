@@ -12,17 +12,11 @@ import com.matias.journeytodependencyinjection.common.dependencyinjection.presen
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
-    /**
-     * Layout resource to be inflated.
-     */
-    protected int layoutResource;
-
     private boolean isInjectorUsed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layoutResource);
     }
 
     @UiThread

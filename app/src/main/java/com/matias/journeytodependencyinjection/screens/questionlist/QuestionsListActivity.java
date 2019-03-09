@@ -1,11 +1,13 @@
 package com.matias.journeytodependencyinjection.screens.questionlist;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
+import com.matias.journeytodependencyinjection.databinding.ActivityQuestionListBinding;
 import com.matias.journeytodependencyinjection.model.ui.Question;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
@@ -17,20 +19,24 @@ import javax.inject.Inject;
 
 public class QuestionsListActivity extends BaseActivity implements QuestionsListContract.View {
 
+    //private ActivityQuestionListBinding binding;
+    ActivityQuestionListBinding binding;
+
     @Inject QuestionsAdapter questionsAdapter;
     @Inject QuestionsListPresenterImpl presenter;
     @Inject DialogsManager dialogsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.layoutResource = R.layout.activity_main;
         super.onCreate(savedInstanceState);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_question_list);
+
         getPresentationComponent().inject(this);
 
         // init recycler view
-        RecyclerView rvQuestions = findViewById(R.id.rv_questions);
-        rvQuestions.setLayoutManager(new LinearLayoutManager(this));
-        rvQuestions.setAdapter(questionsAdapter);
+        binding.rvQuestions.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvQuestions.setAdapter(questionsAdapter);
     }
 
     @Override
