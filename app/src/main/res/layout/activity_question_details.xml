@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="question_details"
+            type="com.matias.journeytodependencyinjection.model.ui.QuestionDetails" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,6 +36,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_blue_dark"
+                android:text="@{question_details != null ? question_details.owner.name : @string/app_name}"
                 tools:text="User's Name"/>
 
             <TextView
@@ -42,6 +49,7 @@
                 android:paddingBottom="20dp"
                 android:textSize="16sp"
                 android:textColor="@android:color/primary_text_light_nodisable"
+                android:text="@{question_details != null ? question_details.body : @string/app_name}"
                 tools:text="Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet." />
         </LinearLayout>
     </ScrollView>

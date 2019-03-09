@@ -24,9 +24,8 @@ public class QuestionDetailsPresenterImpl extends BasePresenterImpl<QuestionDeta
     @Override
     public void onResponse(QuestionDetails questionDetails) {
         if (isBound()) {
+            view.bindQuestionDetails(questionDetails);
             view.showOwnerAvatar(questionDetails.getOwner().getImageUrl());
-            view.showOwnerName(questionDetails.getOwner().getName());
-            view.showQuestionBody(questionDetails.getBody());
         }
     }
 

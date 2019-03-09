@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.Html;
 
 import com.matias.journeytodependencyinjection.R;
 import com.matias.journeytodependencyinjection.common.ImageLoader;
 import com.matias.journeytodependencyinjection.common.mvp.BaseActivity;
 import com.matias.journeytodependencyinjection.databinding.ActivityQuestionDetailsBinding;
+import com.matias.journeytodependencyinjection.model.ui.QuestionDetails;
 import com.matias.journeytodependencyinjection.screens.common.DialogsManager;
 import com.matias.journeytodependencyinjection.screens.common.ServerErrorDialogFragment;
 
@@ -63,21 +63,12 @@ public class QuestionDetailsActivity extends BaseActivity implements QuestionDet
     }
 
     @Override
-    public void showOwnerName(String name) {
-        binding.tvUserName.setText(name);
-    }
-
-    @Override
-    public void showQuestionBody(String body) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            binding.tvQuestionDetail.setText(Html.fromHtml(body, Html.FROM_HTML_MODE_LEGACY));
-        } else {
-            binding.tvQuestionDetail.setText(Html.fromHtml(body));
-        }
-    }
-
-    @Override
     public void showServerErrorDialogFragment() {
         dialogsManager.showRetainedDialogWithId(ServerErrorDialogFragment.newInstance(), null);
+    }
+
+    @Override
+    public void bindQuestionDetails(QuestionDetails questionDetails) {
+        binding.setQuestionDetails(questionDetails);
     }
 }
