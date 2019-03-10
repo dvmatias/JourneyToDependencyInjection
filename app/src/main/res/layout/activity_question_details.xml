@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.Html" />
         <import type="android.view.View" />
         <import type="android.text.TextUtils" />
         <variable
@@ -54,7 +55,7 @@
                 android:textSize="16sp"
                 android:textColor="@android:color/primary_text_light_nodisable"
                 android:visibility="@{TextUtils.isEmpty(question_details.body) ? View.GONE : View.VISIBLE}"
-                android:text="@{question_details.body}"
+                android:text="@{question_details != null ? Html.fromHtml(question_details.body) : Html.fromHtml(@string/empty_string)}"
                 tools:text="Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet." />
         </LinearLayout>
     </ScrollView>
