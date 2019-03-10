@@ -1,5 +1,9 @@
 package com.matias.journeytodependencyinjection.model.ui;
 
+import android.text.Html;
+import android.text.Spanned;
+import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
 
 public class QuestionDetails {
@@ -24,6 +28,13 @@ public class QuestionDetails {
         this.id = id;
         this.body = body;
         this.owner = owner;
+    }
+
+    public Spanned getHtmlBody() {
+        if (TextUtils.isEmpty(getBody())) {
+            return Html.fromHtml("");
+        }
+        return Html.fromHtml(getBody());
     }
 
     public String getTitle() {

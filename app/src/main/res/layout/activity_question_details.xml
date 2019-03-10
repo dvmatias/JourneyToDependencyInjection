@@ -55,7 +55,7 @@
                 android:textSize="16sp"
                 android:textColor="@android:color/primary_text_light_nodisable"
                 android:visibility="@{TextUtils.isEmpty(question_details.body) ? View.GONE : View.VISIBLE}"
-                android:text="@{question_details != null ? Html.fromHtml(question_details.body) : Html.fromHtml(@string/empty_string)}"
+                android:text="@{question_details.getHtmlBody}"
                 tools:text="Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet. Lorem ipsum dolor sato sit amet." />
         </LinearLayout>
     </ScrollView>
